@@ -9,7 +9,8 @@ _Исходя из предоставленых образов IoL в исход
 
 
 ### Дана топология:
-(topologu.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/topology.png)
 
 ---
 Таблица адресации
@@ -214,7 +215,8 @@ S2(config-if)#switchport trunk allowed vlan 3,4,8<br>
 S2(config-if)#switchport trunk native vlan 8<br>
 </details>
 
-два скрина
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/trunk_S1.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/trunk_S2.png)
 
 
 ### 4. Конфигурируем маршрутизацию между сетями VLAN на маршрутизаторе. ("Роутер на палочке")
@@ -235,18 +237,28 @@ R1(config-subif)#encapsulation dot1Q 8 native
 R1(config-subif)#exit
 ```
 
-R1_int_br
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/R1_int_br.png)
 
 ### 5. Производим проверку маршрутизации между VLAN.
 
 Пингуем с PC-A его шлюз по умолчанию
 
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/pcA_to_default_gateway.png)
+
 Пингуем с PC-A PC-B 
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/pcA_to_pcB.png)
 
 Пингуем с PC-A S2
 
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/pcA_to_S2.png)
+
 Запускаем tracert с PC-B до PC-A
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/trace_pcB_to_pcA.png)
 
 Запускаем tracert с PC-A до PC-B
 
-(конфиги устройств: R1, S1, S2, PC-A, PC-B)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/png/trace_pcA_to_pcB.png)
+
+(конфиги устройств: [R1](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/configs/R1.txt), [S1](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/configs/S1.txt), [S2](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/configs/S2.txt), [PC-A](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/configs/PC-A.txt), [PC-B](https://github.com/buravtsovpavel/nw-labs/blob/main/lab01/configs/PC-B.txt))
