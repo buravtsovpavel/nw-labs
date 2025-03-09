@@ -1,0 +1,110 @@
+S1#show running-config
+Building configuration...
+
+Current configuration : 1479 bytes
+!
+! Last configuration change at 16:54:57 YEKT Sun Mar 9 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname S1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$A2sL$0eZaeXgv/w8Kltkz8tBN20
+!
+no aaa new-model
+clock timezone YEKT 5 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport access vlan 3
+ switchport mode access
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 3,4,8
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 8
+ switchport mode trunk
+!
+interface Ethernet0/2
+ switchport trunk allowed vlan 3,4,8
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 8
+ switchport mode trunk
+!
+interface Ethernet0/3
+ switchport access vlan 7
+ switchport mode access
+ shutdown
+!
+interface Vlan3
+ ip address 192.168.3.11 255.255.255.0
+!
+ip default-gateway 192.168.3.1
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ password 7 02050D480809
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 02050D480809
+ login
+!
+!
+end
+
+S1#
