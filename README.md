@@ -1,3 +1,2 @@
-# Репозиторий лабораторных работ
-1. 
-тестовый коммит
+# Лабораторныt работы
+[1.lab01 VLAN](https://github.com/buravtsovpavel/nw-labs/tree/main/lab01)
