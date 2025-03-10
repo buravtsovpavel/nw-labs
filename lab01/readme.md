@@ -47,43 +47,22 @@ VLAN    | Name       | Interface Assigned
 
 ### 1. Собираем топологию и производим базовую настройку устройств:
 
-(hostname, отключение автоматического выполнения DNS-запросов, установка ашифрованного пароля привилегированного режима, установка пароля для доступа через консоль, установка пароля на vty для доступа по протоколам telnet или ssh, шифруем пароли, создаём баннер)
+(hostname, отключение автоматического выполнения DNS-запросов, установка зашифрованного пароля привилегированного режима, установка пароля для доступа через консоль, установка пароля на vty для доступа по протоколам telnet или ssh, шифруем пароли, создаём баннер)
 
 
 Пример настройки для S1
 
 ```
-Switch>enable
-Switch#conf t
-Switch#conf terminal
-Enter configuration commands, one per line.  End with CNTL/Z.
-Switch(config)#hos
 Switch(config)#hostname S1
-S1(config)#no ip dom
-S1(config)#no ip domain loo
 S1(config)#no ip domain lookup
-S1(config)#ena
-S1(config)#enable sec
 S1(config)#enable secret class
-S1(config)#lin
-S1(config)#line co
 S1(config)#line console 0
-S1(config-line)#pas
 S1(config-line)#password cisco
-S1(config-line)#exi
 S1(config-line)#exit
-S1(config)#lin
-S1(config)#line vty
 S1(config)#line vty 0 4
-S1(config-line)#pass
 S1(config-line)#password cisco
-S1(config-line)#log
 S1(config-line)#login
-S1(config-line)#login
-S1(config-line)#exi
 S1(config-line)#exit
-S1(config)#servi
-S1(config)#service pass
 S1(config)#service password-encryption
 S1(config)#banner motd #
 Enter TEXT message.  End with the character '#'.
@@ -92,13 +71,9 @@ This is a secure system. Authorized Access Only!
 ***********************************************
 #
 S1(config)#
-S1(config)#clo
 S1(config)#clock timezone YEKT 5 0
 S1(config)#
 *Mar  9 06:39:17.439: %SYS-6-CLOCKUPDATE: System clock has been updated from 06:39:17 UTC Sun Mar 9 2025 to 11:39:17 YEKT Sun Mar 9 2025, configured from console by console.
-S1(config)#
-S1(config)#
-S1(config)#exi
 S1(config)#exit
 ```
 S2 и R1 конфигурируем схожим образом.
