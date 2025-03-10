@@ -80,7 +80,7 @@ S2 и R1 конфигурируем схожим образом.
 
 ### 2. Создаём vlan'ы и назначаем их на порты коммутаторов.
 
-Создаём vlan'ы в соответствии с таблицей, интерфейсы управления, шлюз по умолчанию на коммутаторах. Все неиспользуемы порты добавляем в VLAN 7  (ParkingLot) и администротивно выключаем.
+Создаём vlan'ы в соответствии с таблицей, интерфейсы управления, шлюз по умолчанию на коммутаторах. Все неиспользуемые порты добавляем в VLAN 7  (ParkingLot) и администротивно выключаем.
 
 S1:
 
@@ -128,7 +128,7 @@ S2(config-vlan)#name Native<br>
 S2(config-vlan)#exit<br>
 S2(config)#interface vlan 3<br>
 S2(config-if)#ip address 192.168.3.12 255.255.255.0<br>
-S1(config-if)#no shutdown
+S1(config-if)#no shutdown<br>
 S2(config-if)#exit<br>
 S2(config)#ip default-gateway 192.168.3.1<br>
 S2(config)#exit<br>
