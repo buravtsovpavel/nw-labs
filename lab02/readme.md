@@ -7,7 +7,7 @@ _Исходя из предоставленых образов IoL в исход
 
 ### Дана топология:
 
-(topology)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/topology.png)
 
 ---
 Таблица адресации
@@ -60,7 +60,9 @@ S2 и S3 конфигурируем схожим образом.
 
 Проверяем способность компьютеров обмениваться эхо-запросами. Обмен успешный.
 
-(три картинки)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/s1ping.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/s2ping.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/s3ping.png)
 
 
 ### 2. Определение корневого моста
@@ -97,11 +99,11 @@ show spanning-tree
 ```
 Видно, что рутом выбран коммутатор S1 с наименьшим Bridge ID. (все три коммутатора имеют равные значения приоритета идентификатора моста (32769 = 32768 + 1, где приоритет по умолчанию = 32768, номер сети VLAN = 1) следовательно, коммутатор с самым низким значением MAC-адреса становится корневым мостом.)
 
-(shstp_1)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/shstp_1.png)
 
 На текущий момент роли и состояния активных портов на каждом коммутаторе в топологии такие:
 
-(port_state_)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/port_state_1.png)
 
 Ответы на вопросы:
 * Какой коммутатор является корневым мостом? S1 
@@ -114,9 +116,9 @@ show spanning-tree
 
 ### 3. Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов
 
-На текущий момент заблокирован e0/2 на на коммутаторе с самым высоким идентификатором BID (S3). (стоимости портов одинаковые). 
+На текущий момент заблокирован e0/2 на на коммутаторе с самым высоким идентификатором BID (S3). 
 
-(shstp_s3.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/shstp_s3.png)
 
 Уменьшаем стоимость корневого порта этого коммутатора(S3) до 18
 
@@ -126,9 +128,8 @@ S3(config-if)#spanning-tree cost 18
 ```
 Теперь ранее заблокированный порт (S3 e0/2) теперь является назначенным, а заблокирован порт на другом коммутаторе некорневого моста (S2 e0/0)
 
-(shstp_s3_2)
-
-(shstp_s2)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/shstp_s3_2.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/shstp_s2.png)
 
 
 Почему протокол spanning-tree заменяет ранее заблокированный порт на назначенный порт и блокирует порт, который был назначенным портом на другом коммутаторе?
@@ -142,7 +143,7 @@ S3(config-if)#no spanning-tree cost 18
 
 Убеждаемся, что протокол STP сбросил порт на коммутаторе некорневого моста, вернув исходные настройки порта.
 
-(shstp_s3_rollback.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/shstp_s3_rollback.png)
 
 ### 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов
 
@@ -154,8 +155,8 @@ S1(config-if-range)#no shutdown
 ```
 Отображаем данные протокола spanning-tree
 
-(shstp_s2_4.png)
-(hstp_s3_4.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/shstp_s2_4.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/png/shstp_s3_4.png)
 
 Почему протокол STP выбрал эти порты в качестве портов корневого моста на этих коммутаторах?
 
@@ -169,4 +170,4 @@ S1(config-if-range)#no shutdown
 * приоритет порта отправителя Port ID (lowest neighbor port ID)
 
 ---
-(конфиги устройств:)
+(конфиги устройств: [S1](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/configs/S1.txt), [S2](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/configs/S2.txt), [S3](https://github.com/buravtsovpavel/nw-labs/blob/main/lab02/configs/S3.txt))
