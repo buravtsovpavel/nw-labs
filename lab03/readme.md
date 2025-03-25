@@ -4,7 +4,7 @@
 ---
 ### Топология:
 
-topology.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/topology.png)
 
 ### Цели
 
@@ -97,7 +97,7 @@ R1(config-subif)#description NATIVE
 ```
 Убедимся, что sub-интерфесы в UP'е
 
-sh_ip_br_R1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_ip_br_R1.png)
 
 #### 1.3 Настраиваем интерфейсы на R2, R1 и статическую маршрутизацию.
 ```
@@ -126,7 +126,7 @@ R1(config)#ip route 0.0.0.0 0.0.0.0 10.0.0.2
 ```
 Пингуем с R1 интерфейс e0/1 на R2
 
-ping R2 e01 from R1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/ping%20R2%20e01%20from%20R1.png)
 
 
 #### 1.4 Настраиваем коммутаторы S1 и S2
@@ -166,7 +166,7 @@ S2(config-if)#exit
 S2(config)#ip default-gateway 192.168.1.97
 ```
 
-sh_vlan_br
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_vlan_br.png)
 
 e0/1 пока в VLAN 1, т.к. не назначали его в другой VLAN.
 
@@ -183,8 +183,7 @@ S1(config-if)#switchport trunk allowed VLAN 100,200,1000
 *Mar 23 09:52:50.966: %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan200, changed state to up
 S1(config-if)#switchport trunk native vlan 1000
 ```
-
-S1_sh_int_tr.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/S1_sh_int_tr.png)
 
 Какой IP-адрес будет у ПК на этом этапе, если он подключен к сети с помощью DHCP?
 
@@ -216,15 +215,15 @@ R1(dhcp-config)#domain-name ccna-lab.com
 R1(dhcp-config)#lease 2 12 30
 ```
 
-sh_ip_dhcp_R1
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_ip_dhcp_R1.png)
 
-sh_ip_dhcp_binding_R1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_ip_dhcp_binding_R1.png)
 
-sh_ip_dhcp_statistics_R1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_ip_dhcp_statistics_R1.png)
 
 #### 2.2 Получаем IP-адрес по DHCP на PC-A
 
-dhcp_PC_A
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/dhcp_PC_A.png)
 
 #### 2.3 Сконфигурируем и проверим DHCP Relay(ретрансляцию) на R2
 
@@ -232,23 +231,23 @@ dhcp_PC_A
 
 #### 2.4 Получаем IP-адрес по DHCP на PC-B
 
-dhcp_PC_B.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/dhcp_PC_B.png)
 
 проверяем связность до R1 
 
-ping_PC_B_R1
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/ping_PC_B_R1.png)
 
 ```
 show ip dhcp binding 
 show ip dhcp server statistics  на R1 и R2
 ```
-sh_ip_dhcp_binding_R1_2.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_ip_dhcp_binding_R1_2.png)
 
-sh_ip_dhcp_statistics_R1_2.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_ip_dhcp_statistics_R1_2.png)
 
-sh_ip_dhcp_statistics_R2.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/png/sh_ip_dhcp_statistics_R2.png)
 
-конфигурации устройств первой части S1, S2, R1, R2
+конфигурации устройств первой части [S1](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/configs_dhcpv4/DHCPv4/S1.txt), [S2](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/configs_dhcpv4/DHCPv4/S2.txt), [R1](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/configs_dhcpv4/DHCPv4/R1.txt), [R2](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv4/configs_dhcpv4/DHCPv4/R2.txt)
 
 ------
 
@@ -256,7 +255,7 @@ sh_ip_dhcp_statistics_R2.png
 
 Топология
 
-topology2
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/topology2.png)
 
 
 Таблица адресации
@@ -343,14 +342,14 @@ R2(config)#ipv6 route ::/0 2001:db8:acad:2::1
 ```
 Проверим:
 
-ping_R1_R2
-ping_R2_R1
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/ping_R1_R2.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/ping_R2_R1.png)
 
 #### 2.3 Проверка получения IPv6 GUA адреса через SLAAC на PC-A от R1
 
 Видно, что получен адрес из подести, которая на интерфейсе e0/1 роутера R1
 
-ip_PCA
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/ip_PCA.png)
 
 Откуда взялась часть адреса host-id?
 
@@ -373,11 +372,11 @@ R1(config-if)#ipv6 dhcp server R1-STATELESS
 ```
 Проверяем, что хост PC-A получил информацию от DHCP сервера по указанным настройкам:
 
-resolf_conf
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/resolf_conf.png)
 
-conn_inf
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/conn_inf.png)
 
-ping_PCA_R2.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/ping_PCA_R2.png)
 
 ### 2.5 Настройка и проверка stateful DHCPv6-сервера на R1 (для ответа на запросы DHCPv6 из локальной сети на R2)
 
@@ -400,14 +399,14 @@ R2(config-if)#ipv6 dhcp relay destination 2001:db8:acad:2::1 e0/0
 ```
 Хост нужные настройки получает
 
-resolf.conf.PCB
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/resolf_conf_PCB.png)
 
-conn_inf_PCB
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/conn_inf_PCB.png)
 
-sh_ipv6_dhcp_binding
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/sh_ipv6_dhcp_binding.png)
 
 Пинг до R1 интерфейса e0/1 проходит
 
-ping_PCB_R1
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/png/ping_PCB_R1.png)
 
-конфигурации устройств второй части S1, S2, R1, R2
+конфигурации устройств второй части [S1](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/configs_dhcpv6/S1.txt), [S2](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/configs_dhcpv6/S2.txt), [R1](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/configs_dhcpv6/R1.txt), [R2](https://github.com/buravtsovpavel/nw-labs/blob/main/lab03/DHCPv6/configs_dhcpv6/R2.txt)
