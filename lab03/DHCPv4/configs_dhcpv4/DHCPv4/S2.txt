@@ -1,0 +1,96 @@
+S2#sh running-config
+Building configuration...
+
+Current configuration : 1131 bytes
+!
+! Last configuration change at 14:36:51 YEKT Sun Mar 23 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname S2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$Hj30$N7LjIY9nXEPoc/HHqy22f.
+!
+no aaa new-model
+clock timezone YEKT 5 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+!
+interface Ethernet0/1
+!
+interface Ethernet0/2
+!
+interface Ethernet0/3
+!
+interface Vlan1
+ ip address 192.168.1.98 255.255.255.240
+!
+ip default-gateway 192.168.1.97
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 094F471A1A0A
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 030752180500
+ login
+!
+!
+end

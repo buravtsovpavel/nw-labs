@@ -1,0 +1,127 @@
+R2#show running-config
+Building configuration...
+
+Current configuration : 1454 bytes
+!
+! Last configuration change at 19:05:22 YEKT Tue Mar 25 2025
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$ryvR$UNoXU/uF59Czwx1JwAXTy0
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ no ip address
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:DB8:ACAD:2::2/64
+!
+interface Ethernet0/1
+ no ip address
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:3::1/64
+ ipv6 nd managed-config-flag
+ ipv6 dhcp relay destination 2001:DB8:ACAD:2::1 Ethernet0/0
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ipv6 route ::/0 2001:DB8:ACAD:2::1
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 045802150C2E
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 030752180500
+ login
+ transport input none
+!
+!
+end
