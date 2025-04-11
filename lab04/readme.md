@@ -15,7 +15,7 @@
 ---
 ### Схема сети
 
-topology.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/topology.png)
 
 ### Решение
 
@@ -25,15 +25,11 @@ VLAN ограничены одним коммутатором уровня до�
 Для создания highly available IP-шлюза на уровне распределения на паре L3 коммутаторов SW4 и SW5 реализован протокол HSRP, предоставляющий хостам согласованный IP-адрес шлюза для каждой настроенной VLAN. SW4 active для VLAN 11, SW5 active для VLAN 7 и VLAN 101.
 Также настроена агрегация каналов по протоколу LACP на коммутаторах SW4 и SW5.
 
-
-topology_Moscow.png
-
-
-
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/topology_Moscow.png)
 
 В Санкт-Петербургском филиале граница между L2 и L3 будет проходить на коммутаторах SW9 и SW10. Точка разграничения L2/L3 перемещена к коммутатору доступа. В таком случае First-hop redundancy protocol не требуется: устраняеся необходимость в протоколах избыточности HSRP и VRRP. STP не требуется.
 
-topology_Spb.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/topology_spb.png)
 
 В малом филиале Чокурдах граница между L2 и L3 - роутер R28. На нём реализована межвлановая маршрутизация Router-on-a-stick.
 
@@ -212,20 +208,20 @@ R27         | e0/0          | 200.50.0.38/30 | link to R25
 
 В Московском филиале настрен HSRP на SW4 и SW5.
 
-SW4_sh_standby_brief.png
-SW5_sh_standby_brief.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/SW4_sh_standby_brief.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/SW5_sh_standby_brief.png)
 
 
 Настроена агрегация каналов:
 
-SW4_sh_etherchannel.png
-SW5_sh_etherchannel.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/SW4_sh_etherchannel.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/SW5_sh_etherchannel.png)
 
 
 Для устранения петель в топологии настроен протокол STP. Коммутатор SW4 - корневой для VLAN 11, SW5 - корневой для VLAN 7 и VLAN 101.
 
-SW4_sh_stp.png
-SW5_sh_stp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/SW4_sh_stp.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/SW5_sh_stp.png)
 
 
 *Примечание*
