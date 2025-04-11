@@ -25,7 +25,7 @@ VLAN ограничены одним коммутатором уровня до�
 Для создания highly available IP-шлюза на уровне распределения на паре L3 коммутаторов SW4 и SW5 реализован протокол HSRP, предоставляющий хостам согласованный IP-адрес шлюза для каждой настроенной VLAN. SW4 active для VLAN 11, SW5 active для VLAN 7 и VLAN 101.
 Также настроена агрегация каналов по протоколу LACP на коммутаторах SW4 и SW5.
 
-![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/topology_Moscow.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/topology_Moscow_new.png)
 
 В Санкт-Петербургском филиале граница между L2 и L3 будет проходить на коммутаторах SW9 и SW10. Точка разграничения L2/L3 перемещена к коммутатору доступа. В таком случае First-hop redundancy protocol не требуется: устраняеся необходимость в протоколах избыточности HSRP и VRRP. STP не требуется.
 
