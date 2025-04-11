@@ -15,7 +15,7 @@
 ---
 ### Схема сети
 
-![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab04/png/topology.png)
+
 
 ### Решение
 
