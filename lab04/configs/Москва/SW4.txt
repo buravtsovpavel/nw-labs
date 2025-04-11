@@ -1,0 +1,163 @@
+SW4#sh run
+Building configuration...
+
+Current configuration : 2755 bytes
+!
+! Last configuration change at 17:18:54 YEKT Thu Apr 10 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname SW4
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$gXMr$ufZ9hd5hr1CsAnUf1bMLE.
+!
+no aaa new-model
+clock timezone YEKT 5 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 11 priority 24576
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.1.0.8 255.255.255.255
+!
+interface Port-channel1
+ switchport trunk allowed vlan 7,11,101
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 8
+ switchport mode trunk
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 7,11,101
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 8
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport trunk allowed vlan 7,11,101
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 8
+ switchport mode trunk
+!
+interface Ethernet0/2
+ switchport trunk allowed vlan 7,11,101
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 8
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/3
+ switchport trunk allowed vlan 7,11,101
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 8
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet1/0
+ description Link to R12
+ no switchport
+ ip address 10.0.10.34 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/1
+ description Link to R13
+ no switchport
+ ip address 10.0.10.37 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/2
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Vlan7
+ description GW-FOR-VPC7
+ ip address 172.16.7.51 255.255.255.0
+ standby version 2
+ standby 7 ip 172.16.7.1
+ standby 7 preempt
+!
+interface Vlan11
+ description GW-FOR-VPC1
+ ip address 172.16.1.50 255.255.255.0
+ standby version 2
+ standby 11 ip 172.16.1.1
+ standby 11 priority 150
+ standby 11 preempt
+!
+interface Vlan101
+ description GW-FOR-MENEGMENT
+ ip address 172.16.50.4 255.255.255.0
+ standby version 2
+ standby 101 ip 172.16.50.50
+ standby 101 preempt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 00071A150754
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 094F471A1A0A
+ login
+!
+!
+end

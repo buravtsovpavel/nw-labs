@@ -1,0 +1,124 @@
+R18#sh running-config
+Building configuration...
+
+Current configuration : 1410 bytes
+!
+! Last configuration change at 09:58:38 YEKT Fri Apr 11 2025
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R18
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$rPfX$J5eCvZUb.4ko5sdn//3B3/
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.2.0.1 255.255.255.255
+!
+interface Ethernet0/0
+ description Link to R16
+ ip address 10.0.15.5 255.255.255.252
+!
+interface Ethernet0/1
+ description Link to R17
+ ip address 10.0.15.2 255.255.255.252
+!
+interface Ethernet0/2
+ description Link to R24
+ ip address 200.50.0.22 255.255.255.252
+!
+interface Ethernet0/3
+ description Link to R26
+ ip address 200.50.0.26 255.255.255.252
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 121A0C041104
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 1511021F0725
+ login
+ transport input none
+!
+!
+end
