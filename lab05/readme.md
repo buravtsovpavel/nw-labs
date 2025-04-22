@@ -199,3 +199,5 @@ R25(config-if)#
 R25(config-if)#
 ```
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab05/png/trace_sla_2.png)
+
+[Конфиги](https://github.com/buravtsovpavel/nw-labs/tree/main/lab05/configs) устройств.
