@@ -6,3 +6,5 @@
 [3. lab03 DHCPv4/v6 и SLAAC](https://github.com/buravtsovpavel/nw-labs/tree/main/lab03)
 
 [4. lab04 Архитектура сети](https://github.com/buravtsovpavel/nw-labs/tree/main/lab04)
+
+[5. PBR IP SLA](https://github.com/buravtsovpavel/nw-labs/blob/main/lab05/readme.md)
