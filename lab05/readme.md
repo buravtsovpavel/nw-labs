@@ -19,7 +19,7 @@ PBR
 - Трафик хостов из VLAN 30 подсеть 172.16.30.0/24 будет направляться через интерфейс e0/3 роутера R25 ip 200.50.0.33
 - Трафик хостов из VLAN 31 подсеть 172.16.31.0/24 будет направляться через интерфейс e0/1 роутера R26 ip 200.50.0.29
 
-topology.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab05/png/topology.png)
 
 Сначала пропишем статические маршруты, что бы можно было проверять связанность.
 
@@ -82,7 +82,7 @@ interface Ethernet0/2.31
 
 Теперь видно, что трафик идёт разными маршрутами
 
-trace2.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab05/png/trace2.png)
 
 
 3. Настроим отслеживание линка через технологию IP SLA.(только для IPv4)
@@ -133,7 +133,6 @@ route-map PBR-VLAN30 permit 10
  set ip next-hop verify-availability 200.50.0.29 20 track 1
 ```
 
-
 ----------
 ### Примечание 
 
@@ -180,7 +179,7 @@ R28(config-track)#
 *Apr 22 13:22:10.102: %TRACK-6-STATE: 1 ip sla 1 reachability Up -> Down
 R28(config-track)#
 ```
-trace_sla_1
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab05/png/trace_sla_1.png)
 
 2. Выключаем интерфейс e0/3 на R25 
 
@@ -199,4 +198,4 @@ R25(config-if)#
 *Apr 22 13:35:31.772: %TRACK-6-STATE: 1 ip sla 1 reachability Up -> Down
 R25(config-if)#
 ```
-trace_sla_2
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab05/png/trace_sla_2.png)
