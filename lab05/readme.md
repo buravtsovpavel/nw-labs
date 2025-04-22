@@ -47,7 +47,7 @@ ip route 200.50.0.36 255.255.255.252 10.0.20.13 name to_labitnangi
 ```
 
 
-Далее настраиваем R28. Созданиём ACL для определения трафика из VLAN 30 и VLAN 31
+Далее настраиваем R28. Создаём ACL для определения трафика из VLAN 30 и VLAN 31
 
 ```
 ip access-list extended ACL-for-VLAN30
