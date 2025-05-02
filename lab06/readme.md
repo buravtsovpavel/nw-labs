@@ -163,10 +163,10 @@ router ospf 1
  default-information originate always
 ```
 
+Маршруты до 10.0.10.0/30 и 10.1.0.6/32 исчезли из таблицы маршрутизации R19.
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R20_after.png)
 
 
-Маршруты до 10.0.10.0/30 и 10.1.0.6/32 исчезли из таблицы маршрутизации R19.
 
 [Конфиги](https://github.com/buravtsovpavel/nw-labs/tree/main/lab06/configs) устройств.
