@@ -145,7 +145,7 @@ interface Ethernet0/0
 
 он полчает все маршруты, в том числе из area 101
 
-![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R20_befor.png4)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R20_befor.png)
 
 Type 3 LSA создаются ABR, поэтому фильтрация возможна только на ABR. 
 На R15 создаём prefix-list которые запретят подсети из area 101 и применим их к OSPF
@@ -168,3 +168,5 @@ router ospf 1
 
 
 Маршруты до 10.0.10.0/30 и 10.1.0.6/32 исчезли из таблицы маршрутизации R19.
+
+[Конфиги](https://github.com/buravtsovpavel/nw-labs/tree/main/lab06/configs) устройств.
