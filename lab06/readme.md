@@ -147,7 +147,6 @@ interface Ethernet0/0
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R20_befor.png4)
 
-
 Type 3 LSA создаются ABR, поэтому фильтрация возможна только на ABR. 
 На R15 создаём prefix-list которые запретят подсети из area 101 и применим их к OSPF
 
@@ -156,6 +155,14 @@ ip prefix-list BLOCK_NET1_101 seq 5 deny 10.0.10.0/30
 ip prefix-list BLOCK_NET2_101 seq 10 deny 10.1.0.1/32
 ip prefix-list BLOCK_NETS seq 20 permit 0.0.0.0/0 le 32
 ```
+```
+router ospf 1
+ router-id 15.15.15.15
+ area 102 filter-list prefix BLOCK_AREA101 in
+ network 10.1.0.2 0.0.0.0 area 0
+ default-information originate always
+```
+
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R20_after.png)
 
