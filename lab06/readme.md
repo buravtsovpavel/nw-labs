@@ -22,7 +22,7 @@ OSPF
 
 Получается топология:
 
-OSPF_Moscow.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/OSPF_Moscow.png)
 
 
 Включить OSPF на интерфейсе можно двумя способами: через команду network в процессе настройки OSPF и прямо на интерфейсе командой ip ospf. Команда ip ospf area на интерфейсе имеет абсолютный приоритет и явно заставляет интерфейс участвовать в OSPF в указанной области, независимо от настроек network.
@@ -47,7 +47,7 @@ interface Ethernet1/0
 
 Теперь R14 и R15 в одной зоне 0 - backbone, между ними сформировано соседство
 
-neig_area0.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/neig_area0.png)
 
 На остальных интерфейсах включаем OSPF в соответствующие зоны.
 
@@ -58,7 +58,7 @@ neig_area0.png
 
 Проверяем, что в таблице маршрутизации появился маршрут по умолчанию:
 
-R12_R13_sh_route_1
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R12_R13_sh_route_1.png)
 
 Сразу на SW4 и SW5 включаем OSPF через "network" в area 10 на всех интерфейсах включая loopback, интерфейсы которые смотрят на конечных пользователей делаем пассивными (OSPF не отправляет OSPF UPDATE через эти интерфейсы, предотвращая распространение маршрутов и отправку Hello сообщений.)
 
@@ -94,7 +94,7 @@ router ospf 1
 
 Проверяем, что маршруты и маршрут по умолчанию получены:
 
-ip_route_area_10.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/ip_route_area_10.png)
 
 
 ### 3. Маршрутизатор R19 находится в зоне 101 и получает только маршрут по умолчанию.
@@ -137,7 +137,7 @@ interface Ethernet0/0
 ```
 Убеждаемся, что он получает только маршрут по умолчанию.
 
-R19_ip_route_ospf
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R19_ip_route_ospf.png)
 
 ### 4. Маршрутизатор R20 находится в зоне 102 и получает все маршруты, кроме маршрутов до сетей зоны 101.
 
@@ -145,7 +145,7 @@ R19_ip_route_ospf
 
 он полчает все маршруты, в том числе из area 101
 
-R20_befor.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R20_befor.png4)
 
 
 Type 3 LSA создаются ABR, поэтому фильтрация возможна только на ABR. 
@@ -157,7 +157,7 @@ ip prefix-list BLOCK_NET2_101 seq 10 deny 10.1.0.1/32
 ip prefix-list BLOCK_NETS seq 20 permit 0.0.0.0/0 le 32
 ```
 
-R20_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/png/R20_after.png)
 
 
 Маршруты до 10.0.10.0/30 и 10.1.0.6/32 исчезли из таблицы маршрутизации R19.
