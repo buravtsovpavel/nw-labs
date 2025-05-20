@@ -10,3 +10,5 @@
 [5. PBR IP SLA](https://github.com/buravtsovpavel/nw-labs/blob/main/lab05/readme.md)
 
 [6. OSPF](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/readme.md)
+
+[7. ISIS](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/readme.md)
