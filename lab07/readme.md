@@ -14,7 +14,7 @@ IS-IS
 
 Топология:
 
-topology.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/topology.png)
 
 ### Подготовка
 
@@ -100,14 +100,14 @@ R23(config-if)#isis circuit-type level-1-2
 
 Проверим связность например с R23 до R26
 
-ping.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/ping.png)
 
 После настройки смотрим соседей и таблицу маршрутизации
 
-R23
-R25
-R24
-R26
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R23_ip_route.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R25_ip_route.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R24_ip_route.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R26_ip_route.png)
 
-Конфигурации устройств.
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab07/configs) устройств.
 
