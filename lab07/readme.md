@@ -105,15 +105,19 @@ R23(config-if)#isis circuit-type level-1-2
 После настройки смотрим соседей и таблицу маршрутизации
 
 R23
+
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R23_ip_route.png)
 
 R25
+
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R25_ip_route.png)
 
 R24
+
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R24_ip_route.png)
 
 R26
+
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/png/R26_ip_route.png)
 
 [Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab07/configs) устройств.
