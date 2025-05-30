@@ -1,0 +1,153 @@
+R17#show running-config
+Building configuration...
+
+Current configuration : 1932 bytes
+!
+! Last configuration change at 19:46:58 YEKT Thu May 29 2025
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R17
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$2mw1$cXxd1XB5lNs7BoJpcPFPG/
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.2.0.3 255.255.255.255
+!
+interface Ethernet0/0
+ description Link to SW9
+ ip address 10.0.15.13 255.255.255.252
+!
+interface Ethernet0/1
+ description Link to R18
+ ip address 10.0.15.1 255.255.255.252
+!
+interface Ethernet0/2
+ description Link to SW10
+ ip address 10.0.15.21 255.255.255.252
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+!
+router eigrp SPB
+ !
+ address-family ipv4 unicast autonomous-system 1
+  !
+  af-interface default
+   passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/1
+   summary-address 10.0.15.0 255.255.255.224
+   summary-address 172.16.8.0 255.255.252.0
+   no passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/2
+   no passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/0
+   no passive-interface
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 10.0.0.0
+  eigrp router-id 10.2.0.3
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 030752180500
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 121A0C041104
+ login
+ transport input none
+!
+!
+end

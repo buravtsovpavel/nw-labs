@@ -1,0 +1,155 @@
+SW9#show running-config
+Building configuration...
+
+Current configuration : 2246 bytes
+!
+! Last configuration change at 12:26:49 YEKT Thu May 29 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname SW9
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$va6X$LWtuh2SZKCC6AaIt/W/ln.
+!
+no aaa new-model
+clock timezone YEKT 5 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.2.0.5 255.255.255.255
+!
+interface Ethernet0/0
+ no switchport
+ ip address 10.0.15.29 255.255.255.252
+ duplex auto
+!
+interface Ethernet0/1
+!
+interface Ethernet0/2
+ switchport access vlan 8
+ switchport mode access
+!
+interface Ethernet0/3
+ description Link to R17
+ no switchport
+ ip address 10.0.15.14 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/0
+ description Link to R16
+ no switchport
+ ip address 10.0.15.25 255.255.255.252
+ duplex auto
+!
+interface Ethernet1/1
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/3
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Vlan8
+ description GW-FOR-VPC8
+ ip address 172.16.8.1 255.255.255.0
+!
+!
+router eigrp SPB
+ !
+ address-family ipv4 unicast autonomous-system 1
+  !
+  af-interface default
+   passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/3
+   no passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet1/0
+   no passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/0
+   no passive-interface
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 10.0.0.0
+  network 172.16.0.0
+  eigrp router-id 10.2.0.5
+ exit-address-family
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 110A1016141D
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 070C285F4D06
+ login
+!
+!
+end
