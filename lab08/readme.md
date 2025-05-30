@@ -257,7 +257,7 @@ R17(config-router-af-interface)#summary-address 172.16.8.0 255.255.252.0
 
 После этого на R18 в таблице маршрутизации видны просуммированные сети:
 
-![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab08/png/R18_after.png)
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab08/png/R18_after_2.png)
 
 [Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab08/configs) устройств.
 
