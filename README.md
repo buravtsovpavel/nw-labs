@@ -12,3 +12,5 @@
 [6. OSPF](https://github.com/buravtsovpavel/nw-labs/blob/main/lab06/readme.md)
 
 [7. ISIS](https://github.com/buravtsovpavel/nw-labs/blob/main/lab07/readme.md)
+
+[8. EIGRP](https://github.com/buravtsovpavel/nw-labs/tree/main/lab08)
