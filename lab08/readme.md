@@ -14,7 +14,7 @@ EIGRP
 
 ## Решение:
 
-topology.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab08/png/topology.png)
 
 `Перед выполнением задания внесены небольшие коррективы в схему - между SW9 и SW10 хотел переделать LAG L2 в LAG L3, но высянилось, что с LAG L3 в EVE-NG возникает баг - некоторые образы не могут корректно сгенерировать MAC-адрес для L3 Port-channel при использовании no switchport. MAC на Port-channel отображался как 0000.0000.0000 и LAG L3 не работал. Поэтому соединил SW9 и SW10 прямым линком и назначил там адреса из 10.0.15.29/30` 
 
@@ -159,8 +159,8 @@ router eigrp SPB<br>
 
  на R18
 
- R18_befor
-
+ ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab08/png/R18_befor.png)
+ 
  
 ### 2. R32 получает только маршрут по умолчанию.
 
@@ -225,9 +225,9 @@ R32(config-router-af-topology)#distribute-list prefix DEFAULT_ONLY in
 R32(config-router-af-topology)#distribute-list prefix DEFAULT_ONLY in
 R32(config-router-af-topology)#end
 ```
-В таблице маршрутизации R32 по EIGRP теперь приходит только маршрут по умолчанию:ы
+В таблице маршрутизации R32 по EIGRP теперь приходит только маршрут по умолчанию:
 
-R32_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab08/png/R32_after.png)
 
 
 ### 3. R16-17 анонсируют только суммарные префиксы.
@@ -257,8 +257,8 @@ R17(config-router-af-interface)#summary-address 172.16.8.0 255.255.252.0
 
 После этого на R18 в таблице маршрутизации видны просуммированные сети:
 
-R18_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab08/png/R18_after.png)
 
-Конфигурации устройств.
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab08/configs) устройств.
 
 
