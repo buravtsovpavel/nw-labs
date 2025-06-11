@@ -16,7 +16,7 @@ BGP. Основы
 
 ## Решение:
 
-topoogy.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/topology.png)
 
 По условию требуется настроить eBGP между: 
 - R14 <-> R22, R15 <-> R21
@@ -85,21 +85,20 @@ router bgp 101
 
 Видно, что R22 получает один маршрут от R14 и два от R21
 
-R22_bgp_sum_lo
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/R22_bgp_sum_lo.png)
 
 А R21 от каждого соседа по одному
 
-R21_bgp_sum_lo
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/R21_bgp_sum_lo.png)
+
 
 Пинг по loopback'ам проходит. (Если не указывать интерфейс-источник, то пинг не пройдёт, т.к. источником в пакете будет указан внешний интерфейс маршрутизатора, а эти префиксы пока не анонсировались и роутер получатель не будет знать куда отправить echo replay.)
 
-R14_ping_source.png
 
-R14_trace_source.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/R14_ping_source.png)
 
-R18_ping_source.png
 
-R18_trace_source.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/R18_ping_source.png)
 
 
 Теперь для доступности между пограничным роутерами офисами Москва и С.-Петербург анонсируем внешние подсети, на которых установлены BGP-соседства с промежуточными AS.
@@ -144,39 +143,43 @@ router bgp 2042
 
 `sh ip bgp neighbors 200.50.0.1 advertised-routes`
 
-R14_adv
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_adv.png)
 
 
 Проверим на R14 префиксы поступаемые от R22 (таблица adj-RIB-in, ассоциированая только с этим соседом и туда попадает маршрутная информация без каких-либо обработок. Далее к этой таблице применяется политика которая у нас применена к тому или иному соседу.)
 
-R14_rec
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_rec.png)
+
 
 
 Проверяем Loc-RIB на R14 (то, что прошло фильтрацию и сохранено в BGP. из этой таблицы после применения Best Path selection лучшие маршруты попадают в основную ТМ Routing Table)
 
-R14_sh_bgp
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_sh_bpg.png)
 
 
 И маршруты полученные на R14 по BGP попавшие в основную таблицу маршрутизации Routing Table:
 
-R14_ip_route_bgp
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_ip_route_bgp.png)
 
 
 На R21:
 
-R21_ip_route_bgp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R21_ip_route_bgp.png)
 
 
 На R18:
 
-R18_ip_route_bgp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R21_ip_route_bgp.png)
 
 
 Проверяем связность:
 
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_ping.png)
 
-R14_ping.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_trace.png)
 
-R14_trace.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R18_ping.png)
 
-sR18_ping.png
+
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab09/configs) устройств
