@@ -179,7 +179,6 @@ router bgp 2042
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_ping.png)
 
-![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R14_trace.png)
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/2/R18_ping.png)
 
