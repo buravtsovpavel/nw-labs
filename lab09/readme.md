@@ -83,7 +83,7 @@ router bgp 101
 
 #### Настраиваем аналогичным образом eBGP между остальными AS, на R15 и R18 анонсировав loopback'и
 
-Видно, что R22 получает один маршрут от R14 и два от R21
+Видно, что R22 получает один префикс от R14 и два от R21
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab09/png/R22_bgp_sum_lo.png)
 
