@@ -17,4 +17,4 @@
 
 [9. eBGP.Основы](https://github.com/buravtsovpavel/nw-labs/tree/main/lab09)
 
-[10. iBGP.Основы](https://github.com/buravtsovpavel/nw-labs/tree/main/lab10)
+[10. iBGP.](https://github.com/buravtsovpavel/nw-labs/tree/main/lab10)
