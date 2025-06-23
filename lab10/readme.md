@@ -20,7 +20,8 @@ iBGP
 
 ## Решение:
 
-topology.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/topology.png)
+
 
 ## Введение
 
@@ -70,14 +71,16 @@ R15(config-router)#neighbor 10.1.0.1 soft-reconfiguration inbound
 
 Соседство iBGP установилось и теперь R14 до подсетей С.-Петербурга знает по BGP два валидных маршрута, лучший из которых заносится в основную таблицу маршрутизации
 
-R14_sh_ip_bgp_summary.png
-R15_sh_ip_bgp_summary.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/R14_sh_ip_bgp_summary.png)
 
-R14_sh_ip_bgp_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/R15_sh_ip_bgp_summary.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/R14_sh_ip_bgp_1.png)
+
 
 Маршруты до 10.2.0.1/32 и  200.50.0.20/30 пришедшедшие от R22 проигрывает маршрутам пришедшим от R15 по AS-Path и поэтому в итоговую таблицу маршрутизации попадают маршруты пришедшие от R15 и значит далее они должны анонсироваться по BGP, но поскольку в iBGP обратно тому от кого они пришли не анонсируются, то в анонсе от R14 для R15 их нет. А в анонсе для R22 он их предлагает.
 
-R14_sh_ip_route.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/R14_sh_ip_route.png)
 
 
 ### 2. Настроим iBGP в провайдере Триада, с использованием RR.
@@ -112,9 +115,12 @@ router bgp 520
 
 после того как настроили R23 RR и двух клиентов (**пока без R24**) видно, что R26 предлагает R23 два префикса, R23 их получает,но у R23 нет маршрута до их next-hop и он их себе не заносит в таблицу маршрутизации bgp
 
-R26_adv_1.png
 
-R23_rec_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/RR/R26_adv_1.png)
+
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/RR/R23_rec_1.png)
+
 
 Теперь настроим соседство с R24(**пока без next-hop-self**) и он должен анонсировать для R23 много маршрутов
 
@@ -135,23 +141,27 @@ router bgp 520
 
 Видно что R24 предлагает R23 маршруты с Next-Hop до которого у R23 нет маршрутов и он не добавляет их себе в таблицу маршрутизации
 
-R23_rec_from_R24_befor.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/RR/R23_rec_from_R24_befor.png)
+
 
 Теперь добавляем `next-hop-self`
 
 спустя некторое время Next-Hop изменился и маршруты добавились в остновную таблицу маршрутизации
 
-R23_rec_from_R24_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/RR/R23_rec_from_R24_after.png)
+
 
 Так же маршруты добавились на R25 и R26
 
-R25_route_bgp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/RR/R25_route_bgp.png)
 
-R26_route_bgp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/RR/R26_route_bgp.png)
+
 
 у R23 три активных соседа
 
-R23_nei
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/RR/R23_nei.png)
+
 
 ### 3. Настроим офис Москва так, чтобы приоритетным провайдером стал Ламас.
 
@@ -175,9 +185,10 @@ R15(config-router)#neighbor 200.50.0.9 route-map LOCPREF_AS301 in
 
 После применения route-map у R14 и R15 и инициирования что бы префиксы пришли занова (отключением интерфейсов на R18) для входящих маршрутов до подсетей AS2042 Local Preference стал 200, приоритетный провайдер Ламас AS301.
 
-R14_sh_bgp_loc.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/Local%20Perf/R14_sh_bgp_loc.png)
 
-R15_sh_bgp_loc
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/Local%20Perf/R15_sh_bgp_loc.png)
+
 
 ### 4. Настроим офис С.-Петербург так, чтобы трафик до любого офиса распределялся по двум линкам одновременно.
 
@@ -185,9 +196,9 @@ R15_sh_bgp_loc
 
 До внесения изменений видно, что R24 и R26 анонсируют для R18 одинаковые префиксы c одинаковыми BGP атрибутами и до каждого префикса у R18 есть два маршрута один из которых помечен лучшим и занесён в основную таблицу маршрутизации.
 
-R18_befor_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/maximum-paths/R18_befor_1.png)
 
-R18_befor_2.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/maximum-paths/R18_befor_2.png)
 
 Теперь вносим изменения 
 
@@ -205,7 +216,7 @@ router bgp 2042
 
 Видно, что теперь до удалённого офиса по две записи на один префикс с двумя next-hop'ами.
 
-R18_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/maximum-paths/R18_after.png)
 
 
 ### 5. Все сети в лабораторной работе должны иметь IP связность.
@@ -273,6 +284,9 @@ router bgp 1001
 
 Проверяем связность:
 
-VPC1_ping_SBP.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/%D1%81%D0%B2%D1%8F%D0%B7%D0%BD%D0%BE%D1%81%D1%82%D1%8C/VPC1_ping_SBP.png)
 
-VPC8_ping_MSK.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab10/png/%D1%81%D0%B2%D1%8F%D0%B7%D0%BD%D0%BE%D1%81%D1%82%D1%8C/VPC8_ping_MSK.png)
+
+
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab10/configs) устройств
