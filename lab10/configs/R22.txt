@@ -1,0 +1,146 @@
+R22#show running-config
+Building configuration...
+
+Current configuration : 1746 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R22
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$oHxv$MStC/EPczMJOXVc5eaxmb1
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.5.0.1 255.255.255.255
+!
+interface Ethernet0/0
+ description Link to R14
+ ip address 200.50.0.1 255.255.255.252
+!
+interface Ethernet0/1
+ description Link to R21
+ ip address 200.50.0.5 255.255.255.252
+!
+interface Ethernet0/2
+ description Link to R23
+ ip address 200.50.0.13 255.255.255.252
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+router bgp 101
+ bgp router-id 22.22.22.22
+ bgp log-neighbor-changes
+ neighbor 200.50.0.2 remote-as 1001
+ neighbor 200.50.0.2 soft-reconfiguration inbound
+ neighbor 200.50.0.6 remote-as 301
+ neighbor 200.50.0.6 soft-reconfiguration inbound
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 00071A150754
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 070C285F4D06
+ login
+ transport input none
+!
+!
+end
