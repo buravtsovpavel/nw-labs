@@ -94,7 +94,7 @@ router bgp 1001
 Аналогично видно, что в adj-RIB-out на R15 (лучшие маршруты после применения политик к соседу на out) для R14 нет маршрутов пришедших от AS 301:
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/R15_adv_after.png)
-R15_adv_after.png
+
 
 
 
