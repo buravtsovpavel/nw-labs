@@ -25,7 +25,7 @@ BGP. Фильтрация
 
 ### 1. Настроим фильтрацию в офисе Москва так, чтобы не появилось транзитного трафика(As-path).
 
-«Транзитный трафик» — это любой трафик, идущий через нашу AS между двумя другими AS, независимо от того, являются ли они нашими соседями или нет.
+Транзитный трафик — это любой трафик, идущий через нашу AS между двумя другими AS, независимо от того, являются ли они нашими соседями или нет.
 
 Для корпоративных сетей этого следует избегать, т.к.:
 
@@ -41,7 +41,12 @@ BGP. Фильтрация
 
 Для настройки используем механизм **AS-Path ACL**, который фильтрует маршруты на основе BGP-поля AS_PATH
 
-as-path-acl.png
+<details>
+  <summary>AS-Path ACL</summary>
+  
+  ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/as-path-acl.png)
+</details>
+
 
 Настройка R14:
 
@@ -69,7 +74,7 @@ router bgp 1001
 
 Теперь видно, что в adj-RIB-out на R14 (лучшие маршруты после применения политик к соседу на out) для R15 нет маршрутов пришедших от AS 101:
 
-R14_adv_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/R14_adv_after.png)
 
 
 на R15 аналогично фильтруем и отбрасываем маршруты пришедшие из AS 301 и не отправляем их R14:
@@ -88,9 +93,8 @@ router bgp 1001
 
 Аналогично видно, что в adj-RIB-out на R15 (лучшие маршруты после применения политик к соседу на out) для R14 нет маршрутов пришедших от AS 301:
 
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/R15_adv_after.png)
 R15_adv_after.png
-
-----------
 
 
 
@@ -98,7 +102,8 @@ R15_adv_after.png
 
 Анонсы для R24 и R26 до применения:
 
-R18_adv_befor.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/2/R18_adv_befor.png)
+
 
 В данном случае аналогично необходимо не допустить, чтобы маршруты, полученные по eBGP, были переданы дальше другому eBGP-соседу. Для этого разрешим передавать своим eBGP соседям только свои локальные маршруты.  (**Пока мы передаём сети конечных пользователей(п.5 lab10), loopback'и бордеров и внешние сети пограничных роутеров (доступность пограничных роутеров нужна была в п.5 задания BGP. Основы). Если что loopback'и можно будеть удалить из анонсов.**)
 
@@ -128,9 +133,8 @@ router bgp 2042
 
 Анонсы для R24 и R26 после применения:
 
-R18_adv_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/2/R18_adv_after.png)
 
-----------
 
 
 ### 3. Настроим провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по умолчанию.
@@ -166,7 +170,7 @@ router bgp 101
 
 Теперь R14 получает от R22 только маршрут по умолчанию и заносит его себе в таблицу маршрутизации:
 
-R14_rec_after.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/3/R14_rec_after.png)
 
 
 ((Команда show ip bgp neighbors ... advertised-routes не показывает "искусственные" маршруты, а только те, которые реально присутствуют в локальной BGP таблице (show ip bgp) либо были объявлены через network, aggregate-address, redistribute либо пришли от соседей, а маршрут, идущий через  default-originate, не считается локальным BGP-маршрутом — он "вшивается" в UPDATE пакет исключительно для этого соседа. ))
@@ -194,7 +198,18 @@ router bgp 301
 
 R15 от R21 Ламас получает только дефолт и префикс конечных пользователей СПБ
 
-R15_adv
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/4/R15_adv.png)
 
------------------
 
+### 5. Проверка связности подсетей конечных пользователей.
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/5/VPC.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/5/VPC1.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/5/VPC7.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/5/VPC8.png)
+
+
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab11/config) устройств
