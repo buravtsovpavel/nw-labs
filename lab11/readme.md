@@ -173,7 +173,7 @@ router bgp 101
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/3/R14_rec_after.png)
 
 
-((Команда show ip bgp neighbors ... advertised-routes не показывает "искусственные" маршруты, а только те, которые реально присутствуют в локальной BGP таблице (show ip bgp) либо были объявлены через network, aggregate-address, redistribute либо пришли от соседей, а маршрут, идущий через  default-originate, не считается локальным BGP-маршрутом — он "вшивается" в UPDATE пакет исключительно для этого соседа. ))
+(Команда show ip bgp neighbors ... advertised-routes не показывает "искусственные" маршруты, а только те, которые реально присутствуют в локальной BGP таблице (show ip bgp) либо были объявлены через network, aggregate-address, redistribute либо пришли от соседей, а маршрут, идущий через  default-originate, не считается локальным BGP-маршрутом — он "вшивается" в UPDATE пакет исключительно для этого соседа. )
 
 ---------------
 
