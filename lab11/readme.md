@@ -20,7 +20,7 @@ BGP. Фильтрация
 
 ## Решение:
 
-toplogy.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab11/png/topology.png)
 
 
 ### 1. Настроим фильтрацию в офисе Москва так, чтобы не появилось транзитного трафика(As-path).
