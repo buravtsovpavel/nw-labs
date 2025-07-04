@@ -192,7 +192,7 @@ ip prefix-list SPB-AND-DEFAULT seq 15 permit 172.16.8.0/22
 
 ```
 router bgp 301
- neighbor 200.50.0.10 route-map TO-MOSCOW out
+ neighbor 200.50.0.10 prefix-list SPB-AND-DEFAULT out
  neighbor 200.50.0.10 default-originate
 ```
 
