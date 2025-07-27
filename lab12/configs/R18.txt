@@ -1,0 +1,195 @@
+R18#show running-config
+Building configuration...
+
+Current configuration : 3394 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R18
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$rPfX$J5eCvZUb.4ko5sdn//3B3/
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.2.0.1 255.255.255.255
+!
+interface Ethernet0/0
+ description Link to R16
+ ip address 10.0.15.5 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Ethernet0/1
+ description Link to R17
+ ip address 10.0.15.2 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Ethernet0/2
+ description Link to R24
+ ip address 200.50.0.22 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface Ethernet0/3
+ description Link to R26
+ ip address 200.50.0.26 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+!
+router eigrp SPB
+ !
+ address-family ipv4 unicast autonomous-system 1
+  !
+  af-interface default
+   passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/1
+   no passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/0
+   no passive-interface
+  exit-af-interface
+  !
+  topology base
+   redistribute static route-map ONLY-DEFAULT
+  exit-af-topology
+  network 10.0.0.0
+  eigrp router-id 10.2.0.1
+ exit-address-family
+!
+router bgp 2042
+ bgp router-id 18.18.18.18
+ bgp log-neighbor-changes
+ bgp bestpath as-path multipath-relax
+ network 10.2.0.1 mask 255.255.255.255
+ network 172.16.8.0 mask 255.255.252.0
+ network 200.50.0.20 mask 255.255.255.252
+ network 200.50.0.24 mask 255.255.255.252
+ network 203.0.113.0 mask 255.255.255.248
+ neighbor 200.50.0.21 remote-as 520
+ neighbor 200.50.0.21 soft-reconfiguration inbound
+ neighbor 200.50.0.21 route-map EXPORT-ONLY-LOCAL out
+ neighbor 200.50.0.25 remote-as 520
+ neighbor 200.50.0.25 soft-reconfiguration inbound
+ neighbor 200.50.0.25 route-map EXPORT-ONLY-LOCAL out
+ maximum-paths 2
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip nat pool FOR-NAT 203.0.113.1 203.0.113.5 netmask 255.255.255.248
+ip nat inside source list FOR-NAT pool FOR-NAT overload
+ip route 0.0.0.0 0.0.0.0 200.50.0.21
+ip route 0.0.0.0 0.0.0.0 200.50.0.25
+ip route 203.0.113.0 255.255.255.248 Null0
+!
+ip access-list standard FOR-NAT
+ permit 172.16.8.0 0.0.3.255
+!
+!
+ip prefix-list ONLY-DEFAULT seq 5 permit 0.0.0.0/0
+!
+ip prefix-list ONLY-LOCAL seq 5 permit 10.2.0.1/32
+ip prefix-list ONLY-LOCAL seq 10 permit 172.16.8.0/22
+ip prefix-list ONLY-LOCAL seq 15 permit 200.50.0.20/30
+ip prefix-list ONLY-LOCAL seq 20 permit 200.50.0.24/30
+ip prefix-list ONLY-LOCAL seq 25 permit 203.0.113.0/29
+!
+route-map EXPORT-ONLY-LOCAL permit 10
+ match ip address prefix-list ONLY-LOCAL
+!
+route-map EXPORT-ONLY-LOCAL deny 20
+!
+route-map ONLY-DEFAULT permit 10
+ match ip address prefix-list ONLY-DEFAULT
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 121A0C041104
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 1511021F0725
+ login
+ transport input none
+!
+!
+end

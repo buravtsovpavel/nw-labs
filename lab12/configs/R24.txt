@@ -1,0 +1,155 @@
+R24#sh running-config
+Building configuration...
+
+Current configuration : 1999 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R24
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$SbY.$/x0BT4b7GHCmXWZn7E40N.
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.3.0.3 255.255.255.255
+ ip router isis
+!
+interface Ethernet0/0
+ description Link to R21
+ ip address 200.50.0.18 255.255.255.252
+!
+interface Ethernet0/1
+ description Link to R26
+ ip address 10.0.20.5 255.255.255.252
+ ip router isis
+!
+interface Ethernet0/2
+ description Link to R23
+ ip address 10.0.20.10 255.255.255.252
+ ip router isis
+!
+interface Ethernet0/3
+ description Link to R18
+ ip address 200.50.0.21 255.255.255.252
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+router isis
+ net 49.0024.0100.0300.0003.00
+!
+router bgp 520
+ bgp router-id 24.24.24.24
+ bgp log-neighbor-changes
+ neighbor 10.3.0.1 remote-as 520
+ neighbor 10.3.0.1 next-hop-self
+ neighbor 10.3.0.1 soft-reconfiguration inbound
+ neighbor 200.50.0.17 remote-as 301
+ neighbor 200.50.0.17 soft-reconfiguration inbound
+ neighbor 200.50.0.22 remote-as 2042
+ neighbor 200.50.0.22 soft-reconfiguration inbound
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 0822455D0A16
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 05080F1C2243
+ login
+ transport input none
+!
+!
+end
