@@ -21,4 +21,4 @@
 
 [11. BGP. Фильтрация](https://github.com/buravtsovpavel/nw-labs/tree/main/lab11)
 
-[12. NAT DHCP NTP](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/readme.md)
+[12. NAT DHCP NTP](https://github.com/buravtsovpavel/nw-labs/tree/main/lab12)
