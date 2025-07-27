@@ -260,10 +260,13 @@ interface Vlan7
  standby 7 preempt
 ```
 
-Проверяем получение адреса и шлюза по DHCP:
+Проверяем получение адреса и шлюза по DHCP
+
+VPC1
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/5_DHCP/VPC1_dhcp.png)
 
+VPC7
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/5_DHCP/VPC7_dhcp.png)
 
 ### 7. Настроить NTP сервер на R12 и R13. Все устройства в офисе Москва должны синхронизировать время с R12 и R13.
