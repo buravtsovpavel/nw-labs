@@ -22,11 +22,9 @@
 - План работы и изменения зафиксированы в документации.
 ---
 
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/topology.png)
+
 ## Решение:
-
-------------
-
-topology.png
 
 ### Введение:
 
@@ -52,7 +50,7 @@ router bgp 1001
 
 А R21 теперь знает маршрут до 200.50.0.0/30 через R22 и ответный пакет до 200.50.0.2 прийдёт на R14.
 
-R21_after
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/R21_after.png)
 
 
 ### 1. Настроить NAT(PAT) на R14 и R15. Трансляция должна осуществляться в адрес автономной системы AS1001.
@@ -100,9 +98,9 @@ R15 аналогично.
 
 Проверяем, что PAT работает:
 
-R14_nat_tr_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/R14_nat_tr_1.png)
 
-R15_nat_tr_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/R15_nat_tr_1.png)
 
 ### 2. Настроить NAT(PAT) на R18. Трансляция должна осуществляться в пул из 5 адресов автономной системы AS2042.
 
@@ -145,11 +143,11 @@ ip prefix-list SPB-AND-DEFAULT seq 20 permit 203.0.113.0/29
 ```
 после `clear ip bgp * soft` на R15 маршрут пришёл
 
-R15_ip_route_bgp
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/R15_ip_route_bgp.png)
 
 Проверяем, что PAT работает:
 
-R18_nat_tr
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/2/R18_nat_tr.png)
 
 ### 3. Настроить статический NAT для R20.
 
@@ -163,10 +161,7 @@ R15(config)#ip nat inside source static 10.0.10.22 10.1.0.2
 
 Проверяем, что статический NAT работает:
 
-R15_nat_tr_static_R20
-
-
-!!! ip access-list standard BLOCK_10_1_0_10  - просто висит пустой
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/3/R15_nat_tr_static_R20.png)
 
 
 ### 4. Настроить NAT так, чтобы R19 был доступен с любого узла для удаленного управления.
@@ -180,7 +175,7 @@ ip prefix-list R14-NAT seq 10 permit 10.1.0.10/32
 ```
 Теперь R21, R18 и т.д. пойдут к 10.1.0.10/32 через R14:
 
-R21_sh_ip_route
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R21_sh_ip_route.png)
 
 R14:
 
@@ -205,14 +200,13 @@ end
 ```
 Проверяем удалённый доступ:
 
-R21_telnet_2023
+https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R21_telnet_2023.png
 
-
-R18_telnet_2023.png
+https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R18_telnet_2023.png
 
 Посмотрим трансляцию:
 
-R14_nat_trans
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R14_nat_trans.png)
 
 
 ### 6. Настроить для IPv4 DHCP сервер в офисе Москва на маршрутизаторах R12 и R13. VPC1 и VPC7 должны получать сетевые настройки по DHCP.
@@ -268,9 +262,9 @@ interface Vlan7
 
 Проверяем получение адреса и шлюза по DHCP:
 
-VPC1_dhcp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/5_DHCP/VPC1_dhcp.png)
 
-VPC7_dhcp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/5_DHCP/VPC7_dhcp.png)
 
 ### 7. Настроить NTP сервер на R12 и R13. Все устройства в офисе Москва должны синхронизировать время с R12 и R13.
 
@@ -292,9 +286,9 @@ ntp update-calendar
 ntp peer 10.1.0.5
 ```
 
-R12_status.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/6_NTP/R12_status.png)
 
-R13_status.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/6_NTP/R13_status.png)
 
 R19, R14, SW4 настраиваем клиентами R12:
 
@@ -304,7 +298,7 @@ ntp server 10.1.0.5
 ```
 После синхронизации они становятся stratum 5 и от них можно синхронизироваться:
 
-R19_ntp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/6_NTP/R19_ntp.png)
 
 SW5, R15, R20 настраиваем клиентами R13:
 
@@ -315,7 +309,7 @@ ntp server 10.1.0.4
 
 После синхронизации они становятся stratum 6 и от них можно синхронизироваться:
 
-SW5_status.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/6_NTP/SW5_status.png)
 
 для SW3 указываем сервером SW4, а для SW2 сервером указываем SW5
 
@@ -325,6 +319,6 @@ SW5_status.png
 
 После синхронизации они становятся stratum 6 и 7 соотвественно:
 
-SW2_status.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/6_NTP/SW2_status.png)
 
-SW3_status.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/6_NTP/SW3_status.png)
