@@ -173,7 +173,7 @@ R15(config)#ip nat inside source static 10.0.10.22 10.1.0.2
 ip prefix-list R14-NAT seq 5 permit 200.50.0.0/30
 ip prefix-list R14-NAT seq 10 permit 10.1.0.10/32
 ```
-Теперь R21, R18 и т.д. пойдут к 10.1.0.10/32 через R14:
+Теперь R21, R18 и т.д. пойдут к R14 10.1.0.10/32 (через R22):
 
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R21_sh_ip_route.png)
 
@@ -200,9 +200,9 @@ end
 ```
 Проверяем удалённый доступ:
 
-https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R21_telnet_2023.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R21_telnet_2023.png)
 
-https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R18_telnet_2023.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab12/png/4/R18_telnet_2023.png)
 
 Посмотрим трансляцию:
 
