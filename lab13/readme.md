@@ -18,8 +18,7 @@ VPN. GRE. DmVPN
 
 ## Решение:
 
-topology.png
-
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/topology.png)
 
 ### 1. Настроить GRE между офисами Москва и С.-Петербург.
 
@@ -84,20 +83,25 @@ ip route 172.16.7.0 255.255.255.0 Tunnel1 10
 ```
 Проверяем связность
 
-VPC1_ping_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/GRE/VPC1_ping_1.png)
 
-VPC8_ping_1.png
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/GRE/VPC8_ping_1.png)
+
 
 В wireshrk на промежуточных интерфейсах видно, что туннель работает корректно - есть внешний заголовок IP у которого поле Protocol 47 указывает, что в нём вложение GRE ,  далее GRE заголовок и внутренний заголовок IP.
 
 
-wireshark_gre_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/GRE/wireshark_gre_1.png)
 
-wireshark_gre_2.png
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/GRE/wireshark_gre_2.png)
+
 
 ### 2. Настроить DMVMN между Москва и Чокурдах, Лабытнанги.
 
-Перед настройкой непосредственно DMVPN для его корректной работы были внесены следующие изменения в конфигурацию:
+<details>
+<summary>Перед настройкой непосредственно DMVPN для его корректной работы были внесены следующие изменения в конфигурацию:</summary>
 
 
 1. Для DMVPN нам необходимо иметь underlay связность по внешним ip между офисами(R15, R27 и R28). Поскольку ранее в анонсах подсетей Чокурдах и Лабытнанги не было необходимости и мы их не анонсировали, то анонсируем сейчас. 
@@ -120,7 +124,7 @@ end
 7. добавляем в Чокурдах коммутатор, VPC27 (там будет сеть пользователей 172.16.40.0/24)
 
 topology_1.png
-
+</details>
 
 Будем настраивать DMVPN Phase2. R15 - HUB, R27 и R28 - Spoke. HUB - route-reflector + next-hop-self будет отражать маршруты от споков заменяя next-hop на свой туннельный интерфейс, плюс для споков анонсирует дефолт через свой туннельный интерфейс 10.115.115.1. (neighbor SPOKES default-originate)
 
@@ -268,24 +272,29 @@ router bgp 1001
 
 BGP UPDATE для overlay выглядит так: внешний IP заголовок, GRE, внутренний IP заголовок, TCP и внутри полезная нагрузка - BGP UPDATE.
 
-Wireshark_bgp_UPDATE.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/DMVPN/Wireshark_bgp_UPDATE.png)
+
 
 Проверяем работу DMVPN:
 
 HUB:
 
-R15_show_dmvpn.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/DMVPN/R15_show_dmvpn.png)
 
-R15_sh_ip_nhrp.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/DMVPN/R15_sh_ip_nhrp.png)
+
 
 Spoke:
 
-R27_show_dmvpn.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/DMVPN/R27_show_dmvpn.png)
 
-R27_nhrp_brief.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/DMVPN/R27_nhrp_brief.png)
 
 Все конечные сети за R15, R27 и R28 пингуются и трафик со Spoke на Spoke ходит напрямую (в  промежуточных хопах нет туннельного интерфейса HUB, а сразу туннельный интерфейс нужного Spoke)
 
-VPC27_ping_VPC30.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/DMVPN/VPC27_ping_VPC30.png)
 
-VPC30_ping_VPC27.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/DMVPN/VPC30_ping_VPC27.png)
+
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab13/configs) устройств
+
