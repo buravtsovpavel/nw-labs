@@ -22,3 +22,5 @@
 [11. BGP. Фильтрация](https://github.com/buravtsovpavel/nw-labs/tree/main/lab11)
 
 [12. NAT DHCP NTP](https://github.com/buravtsovpavel/nw-labs/tree/main/lab12)
+
+[13. VPN. GRE. DmVPN](https://github.com/buravtsovpavel/nw-labs/tree/main/lab13)
