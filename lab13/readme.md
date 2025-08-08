@@ -123,7 +123,9 @@ end
 ```
 7. добавляем в Чокурдах коммутатор, VPC27 (там будет сеть пользователей 172.16.40.0/24)
 
-topology_1.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab13/png/topology_1.png)
+
+
 </details>
 
 Будем настраивать DMVPN Phase2. R15 - HUB, R27 и R28 - Spoke. HUB - route-reflector + next-hop-self будет отражать маршруты от споков заменяя next-hop на свой туннельный интерфейс, плюс для споков анонсирует дефолт через свой туннельный интерфейс 10.115.115.1. (neighbor SPOKES default-originate)
