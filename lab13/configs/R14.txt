@@ -1,0 +1,228 @@
+R14#sh running-config
+Building configuration...
+
+Current configuration : 4356 bytes
+!
+! Last configuration change at 15:34:55 YEKT Thu Aug 7 2025
+! NVRAM config last updated at 15:34:57 YEKT Thu Aug 7 2025
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R14
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$EbbV$sEsZf.1apRbeakVQFdDoq/
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.1.0.1 255.255.255.255
+!
+interface Loopback2
+ ip address 10.1.0.10 255.255.255.255
+!
+interface Tunnel0
+ ip address 10.210.210.1 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source 200.50.0.2
+ tunnel destination 200.50.0.22
+!
+interface Ethernet0/0
+ description Link to R12
+ ip address 10.0.10.6 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf 1 area 10
+!
+interface Ethernet0/1
+ description Link to R13
+ ip address 10.0.10.9 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf 1 area 10
+!
+interface Ethernet0/2
+ description Link to R22
+ ip address 200.50.0.2 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface Ethernet0/3
+ description Link to R19
+ ip address 10.0.10.2 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf 1 area 101
+!
+interface Ethernet1/0
+ description Link to R15
+ ip address 10.0.10.41 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf 1 area 0
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 14.14.14.14
+ area 101 stub no-summary
+ network 10.1.0.1 0.0.0.0 area 0
+ default-information originate always
+!
+router bgp 1001
+ bgp router-id 14.14.14.14
+ bgp log-neighbor-changes
+ network 10.1.0.10 mask 255.255.255.255
+ network 200.50.0.0 mask 255.255.255.252
+ neighbor 10.1.0.2 remote-as 1001
+ neighbor 10.1.0.2 update-source Loopback0
+ neighbor 10.1.0.2 soft-reconfiguration inbound
+ neighbor 10.1.0.2 route-map BLOCK-R15-FOR_DMVPN in
+ neighbor 10.1.0.2 route-map BLOCK-TRANSIT-AS101-OUT out
+ neighbor 200.50.0.1 remote-as 101
+ neighbor 200.50.0.1 soft-reconfiguration inbound
+ neighbor 200.50.0.1 route-map BLOCK-PRIVATE out
+!
+ip forward-protocol nd
+!
+ip as-path access-list 1 permit ^101
+!
+no ip http server
+no ip http secure-server
+ip nat pool R14-NAT 200.50.0.2 200.50.0.2 netmask 255.255.255.252
+ip nat inside source list FOR-NAT pool R14-NAT overload
+ip nat inside source static tcp 10.1.0.6 23 10.1.0.10 2023 extendable
+ip route 172.16.8.0 255.255.255.0 Tunnel0
+ip route 172.16.10.0 255.255.255.0 Tunnel0
+!
+ip access-list standard BLOCK_10_1_0_10
+ip access-list standard FOR-NAT
+ permit 172.16.1.0 0.0.0.255
+ permit 172.16.7.0 0.0.0.255
+!
+!
+ip prefix-list BLOCK-PRIVATE seq 5 permit 172.16.1.0/24
+ip prefix-list BLOCK-PRIVATE seq 10 permit 172.16.7.0/24
+ip prefix-list BLOCK-PRIVATE seq 15 permit 172.16.30.0/24
+ip prefix-list BLOCK-PRIVATE seq 20 permit 172.16.31.0/24
+ip prefix-list BLOCK-PRIVATE seq 25 permit 172.16.40.0/24
+!
+ip prefix-list BLOCK-R15-FOR_DMVPN seq 5 deny 172.16.1.0/24
+ip prefix-list BLOCK-R15-FOR_DMVPN seq 10 deny 172.16.7.0/24
+ip prefix-list BLOCK-R15-FOR_DMVPN seq 15 deny 172.16.30.0/24
+ip prefix-list BLOCK-R15-FOR_DMVPN seq 20 deny 172.16.31.0/24
+ip prefix-list BLOCK-R15-FOR_DMVPN seq 25 deny 172.16.40.0/24
+ip prefix-list BLOCK-R15-FOR_DMVPN seq 30 permit 0.0.0.0/0 le 32
+!
+route-map BLOCK-PRIVATE deny 10
+ match ip address prefix-list BLOCK-PRIVATE
+!
+route-map BLOCK-PRIVATE permit 20
+!
+route-map BLOCK-TRANSIT-AS101-OUT deny 10
+ match as-path 1
+!
+route-map BLOCK-TRANSIT-AS101-OUT permit 20
+!
+route-map BLOCK-R15-FOR_DMVPN deny 10
+ match ip address prefix-list BLOCK-R15-FOR_DMVPN
+!
+route-map BLOCK-R15-FOR_DMVPN permit 20
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 01100F175804
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 05080F1C2243
+ login
+ transport input none
+!
+ntp source Loopback0
+ntp server 10.1.0.5
+!
+end
+
+R14#
