@@ -18,7 +18,7 @@ IPSec over DmVPN
 
 ## Решение:
 
-topology.png
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/topology.png)
 
 
 ### 1. Настроить GRE поверх IPSec между офисами Москва и С.-Петербург
@@ -116,9 +116,12 @@ interface Tunnel0
 
 пинг проходит, трафик идёт через туннельный интерфейс
 
-ping VPC1 VPC8.png
 
-Wireshark_IPSec_over_GRE
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/GRE%20over%20IPSec/ping%20VPC1%20VPC8.png)
+
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/GRE%20over%20IPSec/Wireshark_IPSec_over_GRE.png)
+
 
 
 ### 2. Настроить DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги.
@@ -255,4 +258,18 @@ interface Tunnel0
 ```
 
 Проверка:
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/DMVPN/R15_sh_crypto_ikev2_sa.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/DMVPN/R15_sh_crypto_ikev2_session.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/DMVPN/R15_sh_crypto_ipsec_profile.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/DMVPN/R15_sh_crypto_session.png)
+
+![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/DMVPN/Wireshark_VPC1_VPC30.png)
+
+
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab14/configs)устройств
+
 
