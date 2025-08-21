@@ -1,0 +1,221 @@
+R27#sh run
+Building configuration...
+
+Current configuration : 4093 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R27
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$QpmO$Qs8klLS3JXXbo8Ucmqh0v1
+!
+no aaa new-model
+clock timezone YEKT 5 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+crypto ikev2 proposal DMVPN_PHASE2
+ encryption aes-cbc-128
+ integrity md5
+ group 2
+!
+crypto ikev2 policy DMVPN_IKEV2
+ proposal DMVPN_PHASE2
+!
+!
+crypto ikev2 profile DMVPN_PROFILE
+ match address local interface Ethernet0/0
+ match identity remote address 0.0.0.0
+ authentication remote pre-share key DMVPNKEY
+ authentication local pre-share key DMVPNKEY
+!
+!
+!
+crypto ipsec transform-set DMVPN_TS esp-aes esp-md5-hmac
+ mode transport
+!
+crypto ipsec profile DMVPN_IPSEC_PROFILE
+ set transform-set DMVPN_TS
+ set ikev2-profile DMVPN_PROFILE
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.7.0.1 255.255.255.255
+!
+interface Tunnel0
+ description FOR-DMVPN-SPOKE27
+ ip address 10.115.115.2 255.255.255.0
+ no ip redirects
+ ip mtu 1380
+ ip nhrp map 10.115.115.1 200.50.0.10
+ ip nhrp map multicast 10.115.115.1
+ ip nhrp network-id 999
+ ip nhrp nhs 10.115.115.1
+ ip nhrp registration no-unique
+ ip tcp adjust-mss 1360
+ tunnel source Ethernet0/0
+ tunnel mode gre multipoint
+ tunnel key 999
+ tunnel protection ipsec profile DMVPN_IPSEC_PROFILE
+!
+interface Ethernet0/0
+ description Link to R25
+ ip address 200.50.0.38 255.255.255.252
+!
+interface Ethernet0/1
+ description GTW-VPC27
+ ip address 172.16.40.1 255.255.255.0
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+router bgp 1001
+ bgp router-id 27.27.27.27
+ bgp log-neighbor-changes
+ network 172.16.40.0 mask 255.255.255.0
+ network 200.50.0.36 mask 255.255.255.252
+ neighbor 10.115.115.1 remote-as 1001
+ neighbor 10.115.115.1 allowas-in
+ neighbor 10.115.115.1 soft-reconfiguration inbound
+ neighbor 10.115.115.1 route-map BGP-IN-FILTER in
+ neighbor 10.115.115.1 route-map BGP-OUT-FILTER out
+ neighbor 200.50.0.37 remote-as 520
+ neighbor 200.50.0.37 allowas-in
+ neighbor 200.50.0.37 soft-reconfiguration inbound
+ neighbor 200.50.0.37 route-map BLOCK-R25 out
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+ip prefix-list BLOCK-NBMA-DENY seq 5 permit 200.50.0.0/24
+!
+ip prefix-list BLOCK-NBMA-PERMIT seq 5 permit 172.16.1.0/24
+ip prefix-list BLOCK-NBMA-PERMIT seq 7 permit 172.16.40.0/24
+ip prefix-list BLOCK-NBMA-PERMIT seq 10 permit 172.16.7.0/24
+ip prefix-list BLOCK-NBMA-PERMIT seq 15 permit 172.16.30.0/24
+ip prefix-list BLOCK-NBMA-PERMIT seq 20 permit 172.16.31.0/24
+!
+ip prefix-list FOR-R25-BLOCK seq 5 permit 172.16.40.0/24
+ip prefix-list FOR-R25-BLOCK seq 10 permit 172.16.7.0/24
+ip prefix-list FOR-R25-BLOCK seq 15 permit 172.16.1.0/24
+ip prefix-list FOR-R25-BLOCK seq 20 permit 172.16.30.0/24
+ip prefix-list FOR-R25-BLOCK seq 25 permit 172.16.31.0/24
+!
+route-map BGP-OUT-FILTER deny 10
+ match ip address prefix-list BLOCK-NBMA-DENY
+!
+route-map BGP-OUT-FILTER permit 20
+ match ip address prefix-list BLOCK-NBMA-PERMIT
+!
+route-map BLOCK-R25 deny 10
+ match ip address prefix-list FOR-R25-BLOCK
+!
+route-map BLOCK-R25 permit 20
+!
+route-map BGP-IN-FILTER deny 10
+ match ip address prefix-list BLOCK-NBMA-DENY
+!
+route-map BGP-IN-FILTER permit 20
+ match ip address prefix-list BLOCK-NBMA-PERMIT
+!
+route-map BGP-IN-FILTER permit 30
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+banner motd ^C
+***********************************************
+This is a secure system. Authorized Access Only!
+***********************************************
+^C
+!
+line con 0
+ exec-timeout 0 0
+ password 7 14141B180F0B
+ logging synchronous
+line aux 0
+line vty 0 4
+ password 7 05080F1C2243
+ login
+ transport input none
+!
+!
+end
