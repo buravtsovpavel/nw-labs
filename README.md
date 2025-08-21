@@ -24,3 +24,5 @@
 [12. NAT DHCP NTP](https://github.com/buravtsovpavel/nw-labs/tree/main/lab12)
 
 [13. VPN. GRE. DmVPN](https://github.com/buravtsovpavel/nw-labs/tree/main/lab13)
+
+[14. IPSec over DmVPN](https://github.com/buravtsovpavel/nw-labs/tree/main/lab14)
