@@ -270,6 +270,6 @@ interface Tunnel0
 ![](https://github.com/buravtsovpavel/nw-labs/blob/main/lab14/png/DMVPN/Wireshark_VPC1_VPC30.png)
 
 
-[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab14/configs)устройств
+[Конфигурации](https://github.com/buravtsovpavel/nw-labs/tree/main/lab14/configs) устройств
 
 
