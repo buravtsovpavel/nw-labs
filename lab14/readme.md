@@ -78,6 +78,14 @@ interface Tunnel0
  tunnel destination 200.50.0.22
  tunnel protection ipsec profile IPSEC_PROFILE
 ```
+Приписываем маршруты, что до сетей 172.16.8.0/24 и 172.16.10.0/24 следует ходить через интерфей с tunnel0:
+
+```
+ip route 172.16.8.0 255.255.255.0 Tunnel0
+ip route 172.16.10.0 255.255.255.0 Tunnel0
+```
+
+
 
 На R18 аналогично:
 
